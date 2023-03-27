@@ -12,7 +12,7 @@ namespace WarcabyTrue
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); //tutut
         }
     }
 }
