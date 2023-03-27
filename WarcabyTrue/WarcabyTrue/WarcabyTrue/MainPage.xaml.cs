@@ -10,9 +10,15 @@ namespace WarcabyTrue
 {
     public partial class MainPage : ContentPage
     {
+        Button przyciski[];
+
         public MainPage()
         {
             InitializeComponent(); 
+
+            
+            
+            
         }
     }
 }
