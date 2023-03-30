@@ -10,11 +10,35 @@ namespace WarcabyTrue
 {
     public partial class MainPage : ContentPage
     {
-        Button przyciski[];
-
+        Button[,] przyciski = new Button[8, 8];
+        bool dupa = false;
         public MainPage()
         {
             InitializeComponent(); 
+
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    przyciski[i, j] = new Button();
+                    if (dupa == true)
+                    {
+                        przyciski[i, j].BackgroundColor = Color.Black;
+                        dupa = false;
+                    }
+                    else
+                    {
+                        przyciski[i, j].BackgroundColor = Color.White;
+                        dupa = true;
+                    }
+                    PlanszaLayout.Children.Add(przyciski[i, j], i, j);
+                }
+                if(dupa == true)
+                {
+                    dupa = false;
+                }
+                else { dupa = true; }
+            }
 
             
             
