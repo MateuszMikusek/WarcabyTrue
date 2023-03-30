@@ -12,6 +12,7 @@ namespace WarcabyTrue
     {
         Button[,] przyciski = new Button[8, 8];
         bool dupa = false;
+        string pion = "😡";
         public MainPage()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace WarcabyTrue
                     {
                         przyciski[i, j] = new Pole(dupa);
                         przyciski[i, j].BackgroundColor = Color.Black;
+                        przyciski[i,j].Text=pion;
                         dupa = false;
                     }
                     else
@@ -42,8 +44,12 @@ namespace WarcabyTrue
                         przyciski[i, j].BackgroundColor = Color.White;
                         dupa = true;
                     }
-                    PlanszaLayout.Children.Add(przyciski[i, j], i, j);
+                    PlanszaLayout.Children.Add(przyciski[i, j], j, i);
                 }
+                if (i == 2)
+                    pion = null;
+                if (i == 4)
+                    pion ="😎";
                 if (dupa == true)
                 {
                     dupa = false;
