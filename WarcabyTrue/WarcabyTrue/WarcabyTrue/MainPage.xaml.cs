@@ -14,35 +14,42 @@ namespace WarcabyTrue
         bool dupa = false;
         public MainPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            GeneratePlansza();
+            
 
-            for(int i = 0; i < 8; i++)
+            
+            
+            
+        }
+
+        private void GeneratePlansza()
+        {
+            for (int i = 0; i < 8; i++)
             {
-                for(int j = 0; j < 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
-                    przyciski[i, j] = new Button();
+                    
                     if (dupa == true)
                     {
+                        przyciski[i, j] = new Pole(dupa);
                         przyciski[i, j].BackgroundColor = Color.Black;
                         dupa = false;
                     }
                     else
                     {
+                        przyciski[i, j] = new Pole(dupa);
                         przyciski[i, j].BackgroundColor = Color.White;
                         dupa = true;
                     }
                     PlanszaLayout.Children.Add(przyciski[i, j], i, j);
                 }
-                if(dupa == true)
+                if (dupa == true)
                 {
                     dupa = false;
                 }
                 else { dupa = true; }
             }
-
-            
-            
-            
         }
     }
 }
