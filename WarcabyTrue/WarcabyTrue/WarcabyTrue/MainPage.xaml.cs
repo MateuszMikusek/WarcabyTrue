@@ -84,6 +84,11 @@ namespace WarcabyTrue
                 but.Text = pion;
                 przyciski[tempy, tempx].Text = null;
                 TipClear();
+                if (piont == "😎")
+                    piont = "😡";
+                else
+                    piont = "😎";
+
             }
             else
                 TipClear();
@@ -91,7 +96,7 @@ namespace WarcabyTrue
             tempy = Grid.GetRow(but);
             pion = but.Text;
 
-            if (przyciski[tempy, tempx].Text != null)
+            if (przyciski[tempy, tempx].Text == piont)
                 for (int i = -1; i <= 1; i += 2)
                     for (int j = -1; j <= 1; j += 2)
                     {
@@ -159,5 +164,7 @@ namespace WarcabyTrue
             }
 
         }
+
+        
     }
 }
