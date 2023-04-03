@@ -84,10 +84,34 @@ namespace WarcabyTrue
             {
                 if (zbicie == true)
                 {
-                    przyciski[tempoy, tempox].Text = null;
-                    zbicie = false;
-                    tempoy = 0;
-                    tempox = 0;
+                    while (zbicie)
+                    {
+                        przyciski[tempoy, tempox].Text = null;
+                        zbicie = false;
+                        tempoy = 0;
+                        tempox = 0;
+                        for (int i = -1; i <= 1; i += 2)
+                            for (int j = -1; j <= 1; j += 2)
+                            {
+
+                                if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                                {
+                                    if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                                    {
+                                        if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+                                        {
+                                            TipClear();
+                                            przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;
+                                            przyciski[tempy + (i * 2), tempx + (j * 2)].Movable=true;
+                                            zbicie = true;
+                                            tempoy = tempy + i;
+                                            tempox = tempx + j;
+
+                                        }
+                                    }
+                                }
+                            }
+                    }
                 }
                 but.Text = pion;
                 przyciski[tempy, tempx].Text = null;
