@@ -20,11 +20,11 @@ namespace WarcabyTrue
         {
             InitializeComponent();
             GeneratePlansza();
-            
 
-            
-            
-            
+
+
+
+
         }
 
         private void GeneratePlansza()
@@ -33,26 +33,30 @@ namespace WarcabyTrue
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    
+
                     if (dupa == true)
                     {
                         przyciski[i, j] = new Pole(dupa);
                         przyciski[i, j].BackgroundColor = Color.Black;
-                        przyciski[i,j].Text=pion;
+                        przyciski[i, j].BorderWidth = 2;
+                        przyciski[i, j].Text = pion;
+
                         dupa = false;
                     }
                     else
                     {
                         przyciski[i, j] = new Pole(dupa);
                         przyciski[i, j].BackgroundColor = Color.White;
+                        przyciski[i, j].BorderWidth = 2;
                         dupa = true;
                     }
+                    przyciski[i, j].Clicked += new EventHandler(this.Ruch);
                     PlanszaLayout.Children.Add(przyciski[i, j], j, i);
                 }
                 if (i == 2)
                     pion = null;
                 if (i == 4)
-                    pion ="😎";
+                    pion = "😎";
                 if (dupa == true)
                 {
                     dupa = false;
@@ -63,17 +67,47 @@ namespace WarcabyTrue
         private void Ruch(object sender, System.EventArgs e)
         {
             var but = sender as Pole;
-            if (tempx == null)
+            if(but.BorderColor == Color.Red)
             {
-                tempx = Grid.GetColumn(but);
-                tempy = Grid.GetRow(but);
+                but.BorderColor = Color.Green;
+                but.Text = pion;
+                przyciski[tempy, tempx].Text = null;
+                TipClear();
             }
             else
-            {
+                TipClear();
+            tempx = Grid.GetColumn(but);
+            tempy = Grid.GetRow(but);
+            
+            if (przyciski[tempy, tempx].Text != null)
+                for (int i = -1; i <= 1; i += 2)
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8&& przyciski[tempy + i, tempx + j].Text==null)
+                        {
+                            if (przyciski[tempy, tempx].Text == "😎")
+                                if (i < 0)
+                                {
+                                    pion = "😎";
+                                    przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+                                }
+                                    
+                            if (przyciski[tempy, tempx].Text == "😡")
+                                if (i > 0)
+                                {
+                                    pion = "😡";
+                                    przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+                                }
+                        }
 
-            }
-            
-            
+                    }
+        }
+
+        private void TipClear()
+        {
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    przyciski[i, j].BorderColor = Color.Transparent;
         }
     }
 }
