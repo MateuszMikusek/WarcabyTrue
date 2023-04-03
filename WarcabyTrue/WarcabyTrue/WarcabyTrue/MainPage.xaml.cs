@@ -77,27 +77,63 @@ namespace WarcabyTrue
             
         }
 
-        private void zbijanie_Check(int tempx, int tempy, Pionek pionek)
+        private void zbijanie_Check(int tempx, int tempy)
         {
             for(int i = 0;  i < 4; i++)
             {
+                
                 switch(i)
                 {
 
                     case 1:
-                        if(tempy != 0 || tempx != 0)
-                        {
-                            if (pionek.Kolor == przyciski[] )
+                        
+                            if (tempy != 0 || tempx != 0 || tempx != 1 || tempy != 1)
                             {
-
+                                if (przyciski[tempy, tempx].Text != przyciski[tempy - 1, tempx - 1].Text || przyciski[tempy - 1, tempx - 1].Text != "")
+                                {
+                                    if (przyciski[tempy - 2, tempx - 2].Text == "")
+                                    {
+                                        przyciski[tempy - 2, tempx - 2].BorderColor = Color.Red;
+                                    }
+                                }
                             }
-                        }
+                        
                         break; 
                     case 2:
+                        if (tempy != 0 || tempx != 6 || tempx != 7 || tempy != 1)
+                        {
+                            if (przyciski[tempy, tempx].Text != przyciski[tempy + 1, tempx - 1].Text || przyciski[tempy + 1, tempx - 1].Text != "")
+                            {
+                                if (przyciski[tempy + 2, tempx - 2].Text == "")
+                                {
+                                    przyciski[tempy + 2, tempx - 2].BorderColor = Color.Red;
+                                }
+                            }
+                        }
                         break;
                     case 3:
+                        if (tempy != 7 || tempx != 0 || tempx != 1 || tempy != 7)
+                        {
+                            if (przyciski[tempy, tempx].Text != przyciski[tempy - 1, tempx + 1].Text || przyciski[tempy - 1, tempx + 1].Text != "")
+                            {
+                                if (przyciski[tempy - 2, tempx + 2].Text == "")
+                                {
+                                    przyciski[tempy - 2, tempx + 2].BorderColor = Color.Red;
+                                }
+                            }
+                        }
                         break;
                     case 4:
+                        if (tempy != 7 || tempx != 6 || tempx != 7 || tempy != 6)
+                        {
+                            if (przyciski[tempy, tempx].Text != przyciski[tempy - 1, tempx - 1].Text || przyciski[tempy - 1, tempx - 1].Text != "")
+                            {
+                                if (przyciski[tempy - 2, tempx - 2].Text == "")
+                                {
+                                    przyciski[tempy - 2, tempx - 2].BorderColor = Color.Red;
+                                }
+                            }
+                        }
                         break;
                 }
             }
