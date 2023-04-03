@@ -15,6 +15,7 @@ namespace WarcabyTrue
         Pole[,] przyciski = new Pole[8, 8];
         bool dupa = false;
         string pion = "😡";
+        string piont = "😎";
         int tempx;
         int tempy;
         public MainPage()
@@ -80,8 +81,12 @@ namespace WarcabyTrue
                 but.Text = pion;
                 przyciski[tempy, tempx].Text = null;
                 TipClear();
+                if (piont == "😎")
+                    piont = "😡";
+                else
+                    piont = "😎";
             }
-            else
+            else if(but.Text == piont)
             {
                 TipClear();
                 tempx = Grid.GetColumn(but);
