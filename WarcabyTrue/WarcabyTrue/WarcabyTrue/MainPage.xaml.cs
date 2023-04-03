@@ -35,6 +35,11 @@ namespace WarcabyTrue
 
         private void GeneratePlansza()
         {
+            pion = "😡";
+            piont = "😎";
+            dupa = false;
+            zbicie = false;
+            zbijacz = false;
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
@@ -91,7 +96,7 @@ namespace WarcabyTrue
                     piont = "😡";
                 else
                     piont = "😎";
-
+                Win();
             }
             else
                 TipClear();
@@ -222,6 +227,29 @@ namespace WarcabyTrue
                 s = "";
             }
 
+        }
+
+        public async void Win()
+        {
+            bool cool = false, mad = false;
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (przyciski[i, j].Text == "😡")
+                        mad = true;
+                    else if (przyciski[i, j].Text == "😎")
+                        cool = true;
+                }
+            if (!cool) {
+                await DisplayAlert("koniec gry", "Wygrywa 😡 ", "OK");
+                GeneratePlansza();
+            }
+
+            if (!mad)
+            {
+                await DisplayAlert("koniec gry", "Wygrywa 😎 ", "OK");
+                GeneratePlansza();
+            }
         }
 
 
