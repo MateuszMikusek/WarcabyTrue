@@ -102,10 +102,10 @@ namespace WarcabyTrue
                                         {
                                             TipClear();
                                             przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;
-                                            przyciski[tempy + (i * 2), tempx + (j * 2)].Movable=true;
                                             zbicie = true;
                                             tempoy = tempy + i;
                                             tempox = tempx + j;
+                                            bici = false;
 
                                         }
                                     }
