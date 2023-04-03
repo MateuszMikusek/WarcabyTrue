@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,33 @@ namespace WarcabyTrue
             }
             
             
+        }
+
+        private void zbijanie_Check(int tempx, int tempy, Pionek pionek)
+        {
+            for(int i = 0;  i < 4; i++)
+            {
+                switch(i)
+                {
+
+                    case 1:
+                        if(tempy != 0 || tempx != 0)
+                        {
+                            if (pionek.Kolor == przyciski[] )
+                            {
+
+                            }
+                        }
+                        break; 
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                }
+            }
+
         }
     }
 }
