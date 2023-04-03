@@ -16,6 +16,9 @@ namespace WarcabyTrue
         string pion = "😡";
         int tempx;
         int tempy;
+        bool zbicie = false;
+        int tempoy;
+        int tempox;
         public MainPage()
         {
             InitializeComponent();
@@ -69,7 +72,13 @@ namespace WarcabyTrue
             var but = sender as Pole;
             if (but.BorderColor == Color.Red)
             {
-                but.BorderColor = Color.Green;
+                if(zbicie == true)
+                {
+                    przyciski[tempoy, tempox].Text = null;
+                    zbicie = false;
+                    tempoy = 0;
+                    tempox = 0;
+                }
                 but.Text = pion;
                 przyciski[tempy, tempx].Text = null;
                 TipClear();
@@ -78,6 +87,7 @@ namespace WarcabyTrue
                 TipClear();
             tempx = Grid.GetColumn(but);
             tempy = Grid.GetRow(but);
+            pion = but.Text;
 
             if (przyciski[tempy, tempx].Text != null)
                 for (int i = -1; i <= 1; i += 2)
@@ -88,25 +98,36 @@ namespace WarcabyTrue
                             if (przyciski[tempy, tempx].Text == "😎")
                                 if (i < 0)
                                 {
-                                    pion = "😎";
+                                    
                                     przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+                                    
                                 }
 
                             if (przyciski[tempy, tempx].Text == "😡")
                                 if (i > 0)
                                 {
-                                    pion = "😡";
+                                    
                                     przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+                                    
                                 }
                         }
-                        else if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != but.Text && przyciski[tempy + i, tempx + j].Text != null)
+                        else if(tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
                         {
-                            if (tempy + (i * 2) < 8 && tempy + (i * 2) > 0 && tempx + (i * 2) < 8 && tempx + (i * 2) > 0)
+                            if(tempy +(i *2) > 0 && tempy+(i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                            {
                                 if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
                                 {
+                                    TipClear();
                                     przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;
+                                    zbicie = true;
+                                    tempoy = tempy + i;
+                                    tempox = tempx +j;
+                                    
+                                    
                                 }
+                            }
                         }
+                        
 
                     }
         }
@@ -117,5 +138,10 @@ namespace WarcabyTrue
                 for (int j = 0; j < 8; j++)
                     przyciski[i, j].BorderColor = Color.Transparent;
         }
+
+       
+
+        
     }
+
 }
