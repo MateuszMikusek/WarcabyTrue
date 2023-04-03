@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,15 +67,17 @@ namespace WarcabyTrue
         }
         private void Ruch(object sender, System.EventArgs e)
         {
+            Deb();
             var but = sender as Pole;
             if (but.BorderColor == Color.Red)
             {
                 but.BorderColor = Color.Green;
-                but.Text = pion;
+                
                 if(Math.Abs(Grid.GetColumn(but)- tempx) == 2)
                 {
                     przyciski[tempy + (Grid.GetRow(but) - tempy)/2, tempx+(Grid.GetColumn(but) - tempx)/2].Text = null;
                 }
+                but.Text = pion;
                 przyciski[tempy, tempx].Text = null;
                 TipClear();
             }
@@ -83,7 +86,7 @@ namespace WarcabyTrue
                 TipClear();
                 tempx = Grid.GetColumn(but);
                 tempy = Grid.GetRow(but);
-
+                pion = but.Text;
                 if (przyciski[tempy, tempx].Text != null)
                     for (int i = -1; i <= 1; i += 2)
                         for (int j = -1; j <= 1; j += 2)
@@ -93,18 +96,16 @@ namespace WarcabyTrue
                                 if (przyciski[tempy, tempx].Text == "😎")
                                     if (i < 0)
                                     {
-                                        pion = "😎";
                                         przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
                                     }
 
                                 if (przyciski[tempy, tempx].Text == "😡")
                                     if (i > 0)
                                     {
-                                        pion = "😡";
                                         przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
                                     }
                             }
-                            else if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != but.Text && przyciski[tempy + i, tempx + j].Text != null)
+                            else if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != pion && przyciski[tempy + i, tempx + j].Text != null)
                             {
                                 if (tempy + (i * 2) < 8 && tempy + (i * 2) > 0 && tempx + (i * 2) < 8 && tempx + (i * 2) > 0)
                                     if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
@@ -122,6 +123,24 @@ namespace WarcabyTrue
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     przyciski[i, j].BorderColor = Color.Transparent;
+        }
+        protected void Deb()
+        {
+            string s="";
+            Debug.WriteLine("---------- OnStart called!");
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j <8; j++)
+                {
+                    if (przyciski[i, j].Text != null)
+                        s += przyciski[i, j].Text;
+                    else
+                        s += "  ";
+                }
+                Debug.WriteLine(s);
+                s = "";
+            }
+            
         }
     }
 }
