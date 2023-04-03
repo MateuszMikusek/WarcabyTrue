@@ -73,6 +73,7 @@ namespace WarcabyTrue
         private void Ruch(object sender, System.EventArgs e)
         {
             var but = sender as Pole;
+            bool bici = true;
             Przymus();
             if (but.BorderColor == Color.Red)
             {
@@ -99,28 +100,12 @@ namespace WarcabyTrue
             pion = but.Text;
 
             if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
+            {
                 for (int i = -1; i <= 1; i += 2)
                     for (int j = -1; j <= 1; j += 2)
                     {
-                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text == null)
-                        {
-                            if (przyciski[tempy, tempx].Text == "😎")
-                                if (i < 0)
-                                {
 
-                                    przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
-
-                                }
-
-                            if (przyciski[tempy, tempx].Text == "😡")
-                                if (i > 0)
-                                {
-
-                                    przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
-
-                                }
-                        }
-                        else if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
                         {
                             if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
                             {
@@ -131,16 +116,40 @@ namespace WarcabyTrue
                                     zbicie = true;
                                     tempoy = tempy + i;
                                     tempox = tempx + j;
-
+                                    bici = false;
 
                                 }
                             }
                         }
-
-
                     }
+                if (bici)
+                {
+                    for (int i = -1; i <= 1; i += 2)
+                        for (int j = -1; j <= 1; j += 2)
+                        {
+                            if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text == null)
+                            {
+                                if (przyciski[tempy, tempx].Text == "😎")
+                                    if (i < 0)
+                                    {
+
+                                        przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+
+                                    }
+
+                                if (przyciski[tempy, tempx].Text == "😡")
+                                    if (i > 0)
+                                    {
+
+                                        przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+
+                                    }
+                            }
+                        }
+                }
+            }
         }
-        
+
         private void Przymus()
         {
             zbijacz = false;
@@ -154,7 +163,7 @@ namespace WarcabyTrue
 
             for (int tempy = 0; tempy < 8; tempy++)
             {
-                for(int tempx = 0; tempx < 8; tempx++)
+                for (int tempx = 0; tempx < 8; tempx++)
                 {
                     if (przyciski[tempy, tempx].Text == piont)
                         for (int i = -1; i <= 1; i += 2)
@@ -187,7 +196,7 @@ namespace WarcabyTrue
                     }
                 }
             }
-            
+
         }
 
         private void TipClear()
@@ -215,6 +224,6 @@ namespace WarcabyTrue
 
         }
 
-        
+
     }
 }
