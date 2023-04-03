@@ -91,7 +91,7 @@ namespace WarcabyTrue
                     piont = "😡";
                 else
                     piont = "😎";
-
+                Win();
             }
             else
                 TipClear();
@@ -222,6 +222,23 @@ namespace WarcabyTrue
                 s = "";
             }
 
+        }
+
+        public async void Win()
+        {
+            bool cool = false, mad = false;
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (przyciski[i, j].Text == "😡")
+                        mad = true;
+                    else if (przyciski[i, j].Text == "😎")
+                        cool = true;
+                }
+            if (!cool)
+                await DisplayAlert("koniec gry", "Wygrywa 😡 ", "OK");
+            if (!mad)
+                await DisplayAlert("koniec gry", "Wygrywa 😎 ", "OK");
         }
 
 
