@@ -8,7 +8,7 @@ namespace WarcabyTrue
     public class Pole : Button
     {
         public bool IsPlayable;
-        public bool Movable=true;
+        public bool Movable=false;
         public Pole(bool b)
         {
             IsPlayable = b;
