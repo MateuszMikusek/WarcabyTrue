@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -127,6 +128,88 @@ namespace WarcabyTrue
                                     tempoy = tempy + i;
                                     tempox = tempx + j;
                                     bici = false;
+                                    Przymus2(tempy + (i * 2), tempx + (j * 2), but);
+
+                                }
+                            }
+                        }
+                    }
+                if (bici)
+                {
+                    for (int i = -1; i <= 1; i += 2)
+                        for (int j = -1; j <= 1; j += 2)
+                        {
+                            if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text == null)
+                            {
+                                if (przyciski[tempy, tempx].Text == "😎")
+                                    if (i < 0)
+                                    {
+
+                                        przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+
+                                    }
+
+                                if (przyciski[tempy, tempx].Text == "😡")
+                                    if (i > 0)
+                                    {
+
+                                        przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
+
+                                    }
+                            }
+                        }
+                }
+            }
+        }
+
+        void Ruch2(Pole but)
+        {
+            
+            bool bici = true;
+            Przymus();
+            if (but.BorderColor == Color.Red)
+            {
+
+                if (zbicie == true)
+                {
+
+                    przyciski[tempoy, tempox].Text = null;
+                    zbicie = false;
+                    tempoy = 0;
+                    tempox = 0;
+
+
+                }
+                but.Text = pion;
+                przyciski[tempy, tempx].Text = null;
+                TipClear();
+                
+                Win();
+            }
+            else
+                TipClear();
+            tempx = Grid.GetColumn(but);
+            tempy = Grid.GetRow(but);
+            pion = but.Text;
+
+            if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
+            {
+                for (int i = -1; i <= 1; i += 2)
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+
+                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                        {
+                            if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                            {
+                                if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+                                {
+                                    TipClear();
+                                    przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;
+                                    zbicie = true;
+                                    tempoy = tempy + i;
+                                    tempox = tempx + j;
+                                    bici = false;
 
 
                                 }
@@ -212,8 +295,36 @@ namespace WarcabyTrue
 
         }
 
-        private void Przymus2()
+        private void Przymus2(int tempy, int tempx, Pole but)
         {
+            bool mieso = false;
+            Przymus();
+            for (int i = -1; i <= 1; i += 2)
+                for (int j = -1; j <= 1; j += 2)
+                    if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                    {
+                        if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                        {
+                            if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+                            {
+                                mieso = true;
+
+
+                            }
+                        }
+                    }
+
+            if (mieso)
+            {
+                Ruch2(but);
+
+
+            }
+
+                
+            
+            
+
 
         }
 
