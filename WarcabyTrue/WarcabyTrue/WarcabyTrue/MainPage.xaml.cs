@@ -5,14 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace WarcabyTrue
 {
     public partial class MainPage : ContentPage
     {
-        Button[,] przyciski = new Button[8, 8];
+        Pole[,] przyciski = new Pole[8, 8];
         bool dupa = false;
         string pion = "😡";
+        int tempx;
+        int tempy;
         public MainPage()
         {
             InitializeComponent();
@@ -57,6 +60,20 @@ namespace WarcabyTrue
                 else { dupa = true; }
             }
         }
-        
+        private void Ruch(object sender, System.EventArgs e)
+        {
+            var but = sender as Pole;
+            if (tempx == null)
+            {
+                tempx = Grid.GetColumn(but);
+                tempy = Grid.GetRow(but);
+            }
+            else
+            {
+
+            }
+            
+            
+        }
     }
 }
