@@ -21,6 +21,7 @@ namespace WarcabyTrue
         bool zbicie = false;
         int tempoy;
         int tempox;
+        bool zbijacz = false;
         public MainPage()
         {
             InitializeComponent();
@@ -72,6 +73,7 @@ namespace WarcabyTrue
         private void Ruch(object sender, System.EventArgs e)
         {
             var but = sender as Pole;
+            Przymus();
             if (but.BorderColor == Color.Red)
             {
                 if (zbicie == true)
@@ -96,7 +98,7 @@ namespace WarcabyTrue
             tempy = Grid.GetRow(but);
             pion = but.Text;
 
-            if (przyciski[tempy, tempx].Text == piont)
+            if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
                 for (int i = -1; i <= 1; i += 2)
                     for (int j = -1; j <= 1; j += 2)
                     {
@@ -138,7 +140,55 @@ namespace WarcabyTrue
 
                     }
         }
-    
+        
+        private void Przymus()
+        {
+            zbijacz = false;
+            for (int tempy = 0; tempy < 8; tempy++)
+            {
+                for (int tempx = 0; tempx < 8; tempx++)
+                {
+                    przyciski[tempy, tempx].Movable = false;
+                }
+            }
+
+            for (int tempy = 0; tempy < 8; tempy++)
+            {
+                for(int tempx = 0; tempx < 8; tempx++)
+                {
+                    if (przyciski[tempy, tempx].Text == piont)
+                        for (int i = -1; i <= 1; i += 2)
+                            for (int j = -1; j <= 1; j += 2)
+                            {
+                                if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                                {
+                                    if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                                    {
+                                        if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+                                        {
+                                            przyciski[tempy, tempx].Movable = true;
+
+                                            zbijacz = true;
+
+
+                                        }
+                                    }
+                                }
+                            }
+                }
+            }
+            if (zbijacz == false)
+            {
+                for (int tempy = 0; tempy < 8; tempy++)
+                {
+                    for (int tempx = 0; tempx < 8; tempx++)
+                    {
+                        przyciski[tempy, tempx].Movable = true;
+                    }
+                }
+            }
+            
+        }
 
         private void TipClear()
         {
