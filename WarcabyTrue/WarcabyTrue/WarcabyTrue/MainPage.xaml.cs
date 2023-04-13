@@ -27,11 +27,6 @@ namespace WarcabyTrue
         {
             InitializeComponent();
             GeneratePlansza();
-
-
-
-
-
         }
 
         private void GeneratePlansza()
@@ -79,36 +74,23 @@ namespace WarcabyTrue
         private void Ruch(object sender, System.EventArgs e)
         {
             var but = sender as Pole;
-            bool bici = true;
+            
             Przymus();
             if (but.BorderColor == Color.Red)
-            {
+                Bicie(but);
                 
-                if (zbicie == true)
-                {
-                    
-                   przyciski[tempoy, tempox].Text = null;
-                   zbicie = false;
-                   tempoy = 0;
-                   tempox = 0;
-                       
-                    
-                }
-                but.Text = pion;
-                przyciski[tempy, tempx].Text = null;
-                TipClear();
-                if (piont == "😎")
-                    piont = "😡";
-                else
-                    piont = "😎";
-                Win();
-            }
             else
                 TipClear();
+            
+            pion = but.Text;
+            Propozycja(but);
+
+        }
+        public void Propozycja(Pole but)
+        {
             tempx = Grid.GetColumn(but);
             tempy = Grid.GetRow(but);
-            pion = but.Text;
-
+            bool bici = true;
             if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
             {
                 for (int i = -1; i <= 1; i += 2)
@@ -160,7 +142,6 @@ namespace WarcabyTrue
                 }
             }
         }
-
         private void Przymus()
         {
             zbijacz = false;
@@ -189,7 +170,7 @@ namespace WarcabyTrue
                                             przyciski[tempy, tempx].Movable = true;
 
                                             zbijacz = true;
-
+                                            
 
 
 
@@ -210,6 +191,28 @@ namespace WarcabyTrue
                 }
             }
 
+        }
+
+        private void Bicie(Pole but)
+        {
+            if (zbicie == true)
+            {
+
+                przyciski[tempoy, tempox].Text = null;
+                zbicie = false;
+                tempoy = 0;
+                tempox = 0;
+
+
+            }
+            but.Text = pion;
+            przyciski[tempy, tempx].Text = null;
+            TipClear();
+            if (piont == "😎")
+                piont = "😡";
+            else
+                piont = "😎";
+            Win();
         }
 
         private void Przymus2()
