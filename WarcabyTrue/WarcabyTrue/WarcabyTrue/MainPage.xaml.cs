@@ -258,6 +258,7 @@ namespace WarcabyTrue
             {
 
                 przyciski[tempoy, tempox].Text = null;
+                przyciski[tempoy, tempox].BackgroundColor = Color.Black;
                 zbicie = false;
                 tempoy = 0;
                 
