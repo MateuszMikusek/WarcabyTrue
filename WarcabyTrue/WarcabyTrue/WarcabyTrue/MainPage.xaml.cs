@@ -142,6 +142,37 @@ namespace WarcabyTrue
                 }
             }
         }
+        public bool PropozycjaPoBiciu(int tempx, int tempy)
+        {
+            bool props = false;
+            if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
+            {
+                for (int i = -1; i <= 1; i += 2)
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+
+                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+                        {
+                            if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                            {
+                                if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+                                {
+                                    TipClear();
+                                    przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;                  
+                                    zbicie = true;
+                                    tempoy = tempy + i;
+                                    tempox = tempx + j;
+                                    props = true;
+                                }
+                            }
+                        }
+                    }
+
+            }
+            if(props)
+                return true;
+            return false;
+        }
         private void Przymus()
         {
             zbijacz = false;
@@ -202,23 +233,54 @@ namespace WarcabyTrue
                 zbicie = false;
                 tempoy = 0;
                 tempox = 0;
+                if (PropozycjaPoBiciu(Grid.GetColumn(but), Grid.GetRow(but)))
+                {
+                    MovableBlock();
+                    przyciski[Grid.GetColumn(but), Grid.GetRow(but)].Movable = true;
+                    Debug.WriteLine("Another one");
+                }
+                    
+                
 
-
+            }
+            else
+            {
+                if (piont == "😎")
+                    piont = "😡";
+                else if (piont == "😡")
+                    piont = "😎";
+                MovableReset();
             }
             but.Text = pion;
             przyciski[tempy, tempx].Text = null;
+            
             TipClear();
-            if (piont == "😎")
-                piont = "😡";
-            else
-                piont = "😎";
+            
+            
             Win();
         }
-
-        private void Przymus2()
+        public void MovableBlock() //przy podwójnym biciu blokuje resztę pionków
         {
-
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    przyciski[i, j].Movable = false;
+                }
+            }
         }
+        public void MovableReset() //robi odblok pionków po MovableBlock
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    przyciski[i, j].Movable = true;
+                }
+            }
+        }
+
+        
 
         private void TipClear()
         {
@@ -229,7 +291,6 @@ namespace WarcabyTrue
         protected void Deb()
         {
             string s = "";
-            Debug.WriteLine("---------- OnStart called!");
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
