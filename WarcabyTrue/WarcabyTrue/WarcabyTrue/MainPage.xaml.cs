@@ -270,7 +270,10 @@ namespace WarcabyTrue
             {
                 EndTurn();
             }
+            but.BackgroundColor = przyciski[tempy, tempx].BackgroundColor;
+            przyciski[tempy, tempx].BackgroundColor = Color.Black;
             but.Text = pion;
+            CreateKrolowa(Grid.GetColumn(but), Grid.GetRow(but));
             przyciski[tempy, tempx].Text = null;
             
             TipClear();
