@@ -99,7 +99,7 @@ namespace WarcabyTrue
 
                         if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
                         {
-                            if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                            if (tempy + (i * 2) >= 0 && tempy + (i * 2) < 8 && tempx + (j * 2) >= 0 && tempx + (j * 2) < 8)
                             {
                                 if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
                                 {
@@ -142,37 +142,33 @@ namespace WarcabyTrue
                 }
             }
         }
-        public bool PropozycjaPoBiciu(int tempx, int tempy)
-        {
-            bool props = false;
-            if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
-            {
-                for (int i = -1; i <= 1; i += 2)
-                    for (int j = -1; j <= 1; j += 2)
-                    {
+        //public bool PropozycjaPoBiciu(int tempx, int tempy)
+        //{
+        //    if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].Movable)
+        //    {
+        //        for (int i = -1; i <= 1; i += 2)
+        //            for (int j = -1; j <= 1; j += 2)
+        //            {
 
-                        if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
-                        {
-                            if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
-                            {
-                                if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
-                                {
-                                    TipClear();
-                                    przyciski[tempy + (i * 2), tempx + (j * 2)].BorderColor = Color.Red;                  
-                                    zbicie = true;
-                                    tempoy = tempy + i;
-                                    tempox = tempx + j;
-                                    props = true;
-                                }
-                            }
-                        }
-                    }
+        //                if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
+        //                {
+        //                    if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+        //                    {
+        //                        if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
+        //                        { 
+        //                            zbicie = true;
+        //                            tempoy = tempy + i;
+        //                            tempox = tempx + j;
+        //                            return true;
+        //                        }
+        //                    }
+        //                }
+        //            }
 
-            }
-            if(props)
-                return true;
-            return false;
-        }
+        //    }
+            
+        //    return false;
+        //}
         private void Przymus()
         {
             zbijacz = false;
@@ -194,7 +190,7 @@ namespace WarcabyTrue
                             {
                                 if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text != przyciski[tempy, tempx].Text && przyciski[tempy + i, tempx + j].Text != null)
                                 {
-                                    if (tempy + (i * 2) > 0 && tempy + (i * 2) < 8 && tempx + (j * 2) > 0 && tempx + (j * 2) < 8)
+                                    if (tempy + (i * 2) >= 0 && tempy + (i * 2) < 8 && tempx + (j * 2) >= 0 && tempx + (j * 2) < 8)
                                     {
                                         if (przyciski[tempy + (i * 2), tempx + (j * 2)].Text == null)
                                         {
@@ -223,8 +219,15 @@ namespace WarcabyTrue
             }
 
         }
+        private void EndTurn() // zmienia turę
+        {
+            if (piont == "😎")
+                piont = "😡";
+            else if (piont == "😡")
+                piont = "😎";
+        }
 
-        private void Bicie(Pole but)
+        private void Bicie(Pole but)    //Zbicie + przesunięcie
         {
             if (zbicie == true)
             {
@@ -232,24 +235,13 @@ namespace WarcabyTrue
                 przyciski[tempoy, tempox].Text = null;
                 zbicie = false;
                 tempoy = 0;
-                tempox = 0;
-                if (PropozycjaPoBiciu(Grid.GetColumn(but), Grid.GetRow(but)))
-                {
-                    MovableBlock();
-                    przyciski[Grid.GetColumn(but), Grid.GetRow(but)].Movable = true;
-                    Debug.WriteLine("Another one");
-                }
-                    
+               
                 
 
             }
             else
             {
-                if (piont == "😎")
-                    piont = "😡";
-                else if (piont == "😡")
-                    piont = "😎";
-                MovableReset();
+                EndTurn();
             }
             but.Text = pion;
             przyciski[tempy, tempx].Text = null;
