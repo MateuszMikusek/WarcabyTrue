@@ -122,21 +122,34 @@ namespace WarcabyTrue
                         {
                             if (tempy + i >= 0 && tempy + i < 8 && tempx + j >= 0 && tempx + j < 8 && przyciski[tempy + i, tempx + j].Text == null)
                             {
-                                if (przyciski[tempy, tempx].Text == "😎")
+                                if (przyciski[tempy, tempx].Text == "😎" && przyciski[tempy, tempx].BackgroundColor == Color.Black)
+                                {
                                     if (i < 0)
                                     {
 
                                         przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
 
                                     }
+                                }
+                                else if (przyciski[tempy, tempx].Text == "😎" && przyciski[tempy, tempx].BackgroundColor == Color.Gold)
+                                {
+                                    KrolewskiRuch(tempy, tempx);
+                                }
 
-                                if (przyciski[tempy, tempx].Text == "😡")
+                                if (przyciski[tempy, tempx].Text == "😡" && przyciski[tempy, tempx].BackgroundColor == Color.Black)
+                                {
                                     if (i > 0)
                                     {
 
                                         przyciski[tempy + i, tempx + j].BorderColor = Color.Red;
 
                                     }
+                                }
+                                else if (przyciski[tempy, tempx].Text == "😡" && przyciski[tempy, tempx].BackgroundColor == Color.Gold)
+                                {
+                                    KrolewskiRuch(tempy, tempx);
+                                }
+
                             }
                         }
                 }
@@ -158,7 +171,7 @@ namespace WarcabyTrue
             {
                 for (int tempx = 0; tempx < 8; tempx++)
                 {
-                    if (przyciski[tempy, tempx].Text == piont)
+                    if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].BackgroundColor == Color.Black)
                         for (int i = -1; i <= 1; i += 2)
                             for (int j = -1; j <= 1; j += 2)
                             {
@@ -179,6 +192,10 @@ namespace WarcabyTrue
                                     }
                                 }
                             }
+                    else if (przyciski[tempy, tempx].Text == piont && przyciski[tempy, tempx].BackgroundColor == Color.Gold)
+                    {
+
+                    }
                 }
             }
             if (zbijacz == false)
@@ -330,6 +347,65 @@ namespace WarcabyTrue
             }
         }
 
+            public void CreateKrolowa(int Y, int X)
+            {
+                if (piont == "😎" && X == 0)
+                {
+                    przyciski[X, Y].BackgroundColor = Color.Gold;
 
+                }
+                else if (piont == "😡" && X == 7)
+                {
+                    przyciski[X, Y].BackgroundColor = Color.Gold;
+                }
+
+            }
+
+            public void KrolewskiRuch(int Y, int X)
+            {
+                int blok = 0;
+                bool blok_truel = false;
+                for (int m = -1; m <= 1; m += 2) // Y
+                {
+                    for (int n = -1; n <= 1; n += 2) // X
+                    {
+                        blok = 0;
+                        blok_truel = false;
+                        for (int i = 1; i <= 7; i++)
+                        {
+                            if (Y + (m * i) >= 0 && Y + (m * i) < 8 && X + (n * i) >= 0 && X + (n * i) < 8 && przyciski[Y + (m * i), X + (n * i)].Text == null && blok_truel == false)
+                            {
+                                blok = 0;
+                                przyciski[Y + (m * i), X + (n * i)].BorderColor = Color.Red;
+                            }
+                            else if (Y + (m * i) >= 0 && Y + (m * i) < 8 && X + (n * i) >= 0 && X + (n * i) < 8 && przyciski[Y + (m * i), X + (n * i)].Text == przyciski[Y, X].Text)
+                            {
+                                blok += 2;
+                            }
+                            else if (Y + (m * i) >= 0 && Y + (m * i) < 8 && X + (n * i) >= 0 && X + (n * i) < 8 && przyciski[Y + (m * i), X + (n * i)].Text != przyciski[Y, X].Text)
+                            {
+                                blok += 1;
+                            }
+                            if (blok == 2)
+                            {
+                                blok_truel = true;
+                            }
+
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+        }
     }
-}
