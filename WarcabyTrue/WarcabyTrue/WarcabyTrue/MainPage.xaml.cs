@@ -261,13 +261,18 @@ namespace WarcabyTrue
                 przyciski[tempoy, tempox].BackgroundColor = Color.Black;
                 zbicie = false;
                 tempoy = 0;
-                
+                CreateKrolowa(Grid.GetColumn(but), Grid.GetRow(but));
                 if (PropozycjaPoBiciu(Grid.GetRow(but), Grid.GetColumn(but)))
+                {
                     EndTurn();
+                    
+                }
+               
                 
             }
             else
             {
+                CreateKrolowa(Grid.GetColumn(but), Grid.GetRow(but));
                 EndTurn();
             }
             but.BackgroundColor = przyciski[tempy, tempx].BackgroundColor;
